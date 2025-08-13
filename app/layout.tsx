@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
 import { SupabaseProvider } from "@/components/providers/SupabaseProvider";
-import localFont from "next/font/local";
+import Header from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
-import Header from "@/components/layout/Header";
 
 export const metadata: Metadata = {
   title: "نوبت ۲۴",
@@ -36,7 +37,7 @@ export default function RootLayout({
   return (
     <html dir="rtl" lang="fa" suppressHydrationWarning>
       <body
-        className={`${vazirmatn.className} min-h-screen flex items-center flex-col`}
+        className={`${vazirmatn.className} min-h-screen flex items-center flex-col justify-center`}
       >
         <ReactQueryProvider>
           <SupabaseProvider>
@@ -44,6 +45,7 @@ export default function RootLayout({
             <main className="w-full flex justify-center items-center">
               {children}
             </main>
+            <Footer />
             <Toaster position="top-center" reverseOrder={false} />
           </SupabaseProvider>
         </ReactQueryProvider>

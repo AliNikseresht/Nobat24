@@ -33,8 +33,8 @@ const Header = () => {
   }
 
   return (
-    <header className="w-full sticky top-0 z-50 bg-gray-100 shadow-md px-4 py-3">
-      <div className="max-w-5xl mx-auto flex items-center justify-between gap-3">
+    <header className="w-full sticky top-0 z-50 bg-white shadow-md px-4 py-3">
+      <div className="mx-auto flex items-center justify-between gap-3">
         <Link href="/">
           <h1 className="text-2xl sm:text-3xl font-bold text-[#242424] cursor-pointer">
             نوبت۲۴
@@ -56,13 +56,13 @@ const Header = () => {
           <div className="flex gap-3 w-full sm:w-auto justify-end">
             <Link
               href="/login"
-              className="sm:flex-none text-center px-4 py-2 rounded border border-blue-600 text-blue-700 hover:bg-blue-700 hover:text-white transition-colors duration-200"
+              className="sm:flex-none text-center px-7 py-1 rounded bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200"
             >
               ورود
             </Link>
             <Link
               href="/register"
-              className="sm:flex-none text-center px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200"
+              className="sm:flex-none text-center px-7 py-1 rounded border border-blue-600 text-blue-700 hover:bg-blue-700 hover:text-white transition-colors duration-200"
             >
               ثبت‌نام
             </Link>

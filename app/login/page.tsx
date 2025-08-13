@@ -76,12 +76,6 @@ export default function LoginPage() {
           <p className="text-red-600 text-right">{errors.password.message}</p>
         )}
 
-        <p className="mt-4 text-center">
-          حساب ندارید؟{" "}
-          <Link href="/register" className="text-blue-600 underline">
-            ثبت‌نام کنید
-          </Link>
-        </p>
 
         <button
           type="submit"
@@ -90,6 +84,12 @@ export default function LoginPage() {
         >
           {loading ? "لطفا صبر کنید..." : "ورود"}
         </button>
+        <p className="mt-4 text-center">
+          حساب ندارید؟{" "}
+          <Link href="/register" className="text-blue-600 underline">
+            ثبت‌نام کنید
+          </Link>
+        </p>
       </form>
     </div>
   );
