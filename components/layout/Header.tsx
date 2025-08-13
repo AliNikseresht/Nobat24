@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSupabaseAuth } from "@/components/providers/SupabaseProvider";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/libs/supabaseClient";
-import LogoutButton from "@/components/LogoutButton";
+import LogoutButton from "@/components/ui/LogoutButton";
 import { usePathname } from "next/navigation";
 
 async function getProfile(userId: string) {

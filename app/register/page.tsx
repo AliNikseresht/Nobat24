@@ -8,19 +8,7 @@ import { supabase } from "@/libs/supabaseClient";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
-
-const registerSchema = z.object({
-  fullName: z.string().min(2, "نام کامل باید حداقل ۲ کاراکتر باشد"),
-  email: z.string().email("ایمیل معتبر نیست"),
-  password: z.string().min(6, "رمز عبور باید حداقل ۶ کاراکتر باشد"),
-  phone: z
-    .string()
-    .min(10, "شماره تلفن باید حداقل ۱۰ رقم باشد")
-    .max(15, "شماره تلفن نمی‌تواند بیشتر از ۱۵ رقم باشد"),
-  role: z.enum(["customer", "owner"], {
-    message: "نقش کاربر الزامی است",
-  }),
-});
+import { registerSchema } from "@/utils/registerSchema";
 
 type RegisterFormInputs = z.infer<typeof registerSchema>;
 
@@ -95,7 +83,10 @@ export default function RegisterPage() {
     <div className="w-full flex justify-center rounded-md">
       <div className="max-w-md w-full rounded-md bg-white p-6">
         <h1 className="text-2xl mb-4 text-center">ثبت‌ نام</h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 text-sm text-[#242424]">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-4 text-sm text-[#242424]"
+        >
           <input
             {...register("fullName")}
             placeholder="نام کامل"

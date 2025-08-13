@@ -8,11 +8,7 @@ import { supabase } from "@/libs/supabaseClient";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
-
-const loginSchema = z.object({
-  email: z.string().email("ایمیل معتبر نیست"),
-  password: z.string().min(6, "رمز عبور باید حداقل ۶ کاراکتر باشد"),
-});
+import { loginSchema } from "@/utils/loginSchema";
 
 type LoginFormInputs = z.infer<typeof loginSchema>;
 
@@ -51,9 +47,12 @@ export default function LoginPage() {
   };
 
   return (
-      <div className="max-w-md w-full rounded-md bg-white p-6">
+    <div className="max-w-md w-full rounded-md bg-white p-6">
       <h1 className="text-2xl mb-4 text-center">ورود</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 text-sm text-[#242424]">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-4 text-sm text-[#242424]"
+      >
         <input
           {...register("email")}
           placeholder="ایمیل"
@@ -75,7 +74,6 @@ export default function LoginPage() {
         {errors.password && (
           <p className="text-red-600 text-right">{errors.password.message}</p>
         )}
-
 
         <button
           type="submit"

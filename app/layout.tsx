@@ -46,7 +46,7 @@ export default function RootLayout({
               {children}
             </main>
             <Footer />
-            <Toaster position="top-center" reverseOrder={false} />
+            <Toaster position="top-left" reverseOrder={false} />
           </SupabaseProvider>
         </ReactQueryProvider>
       </body>

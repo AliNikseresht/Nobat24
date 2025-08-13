@@ -1,40 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-
-interface Business {
-  id: string;
-  name: string;
-  description: string;
-  image_url: string;
-  category: { name: string };
-  owner: { full_name: string };
-}
-
-const fetchBusinessesPage = async ({
-  pageParam = 0,
-}): Promise<{ data: Business[]; nextPage: number | null }> => {
-  const pageSize = 20;
-
-  const allBusinesses: Business[] = Array.from({ length: 130 }).map((_, i) => ({
-    id: (i + 1).toString(),
-    name: `خدمت شماره ${i + 1}`,
-    description: `توضیحات خدمت شماره ${i + 1}`,
-    image_url: `https://picsum.photos/seed/${i + 1}/100/100`,
-    category: { name: `دسته ${(i % 5) + 1}` },
-    owner: { full_name: `صاحب کسب‌وکار ${(i % 10) + 1}` },
-  }));
-
-  const start = pageParam * pageSize;
-  const end = start + pageSize;
-  const pageData = allBusinesses.slice(start, end);
-  const nextPage = end < allBusinesses.length ? pageParam + 1 : null;
-
-  return new Promise((resolve) =>
-    setTimeout(() => resolve({ data: pageData, nextPage }), 500)
-  );
-};
+import { fetchAllBusinesses } from "@/services/fetchAllBusinesses";
+import { Business } from "@/types/businessType";
+import BookingModal from "./BookingModal";
 
 const ServicesList = () => {
   const {
@@ -46,10 +16,19 @@ const ServicesList = () => {
     isError,
   } = useInfiniteQuery({
     queryKey: ["allBusinesses"],
-    queryFn: fetchBusinessesPage,
+    queryFn: fetchAllBusinesses,
     getNextPageParam: (lastPage) => lastPage.nextPage,
     initialPageParam: 0,
   });
+  const [selectedBusiness, setSelectedBusiness] = useState<Business | null>(
+    null
+  );
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleBookingClick = (business: Business) => {
+    setSelectedBusiness(business);
+    setIsModalOpen(true);
+  };
 
   const handleClick = (business: Business) => {
     console.log("Open modal for:", business);
@@ -85,7 +64,15 @@ const ServicesList = () => {
                   <p className="text-xs text-gray-400">{b.owner.full_name}</p>
                 </div>
               </div>
-              <button className="absolute bottom-2 left-2 px-2 py-0.5 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 duration-200 gap-2 cursor-pointer">نوبت بگیر</button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleBookingClick(b);
+                }}
+                className="absolute bottom-2 left-2 px-2 py-0.5 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 duration-200 gap-2 cursor-pointer"
+              >
+                نوبت بگیر
+              </button>
             </div>
           ))
         )}
@@ -103,6 +90,12 @@ const ServicesList = () => {
           )}
         </button>
       )}
+      <BookingModal
+        business={selectedBusiness}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        // user={loggedInUser}
+      />
     </section>
   );
 };
